@@ -70,7 +70,7 @@ public class Goeuro_test {
                         csv_data=getCsvFormat(jsonarray,",");
                         in.close();
                 } catch (Exception e) {
-                        System.out.println("\nError while calling Cityy REST Service");
+                        System.out.println("\nError while calling City Service");
                         System.out.println(e);
                         e.printStackTrace();
                 }
@@ -80,9 +80,14 @@ public class Goeuro_test {
             writeFile(getLocationData(city_name), city_name+".csv");
         }
  	public static void main(String[] args) {
-            //System.out.println(args[0]);
-            String city_name="Berlin";
-            processLocation(city_name);
+            String city_name="";
+            try{
+             city_name=args[0];
+             processLocation(city_name);
+            }catch(Exception e){
+                System.out.println("Exception: City name argument is missing!!");
+                e.printStackTrace();
+            }
         }
     
     
