@@ -85,8 +85,8 @@
 
         <echo message="Packaging ${application.title} into a single JAR at ${store.jar}"/>
 
-        <delete dir="${store.dir}"/>
-        <mkdir dir="${store.dir}"/>
+        <!--<delete dir="${store.dir}"/>
+        <mkdir dir="${store.dir}"/>-->
 
         <jar destfile="${store.dir}/temp_final.jar" filesetmanifest="skip">
             <zipgroupfileset dir="dist" includes="*.jar"/>
@@ -102,8 +102,8 @@
             excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
         </zip>
 
-        <delete file="${store.dir}/temp_final.jar"/>
-
+       <delete file="${store.dir}/temp_final.jar"/>
+        
     </target>
 
 </project>
