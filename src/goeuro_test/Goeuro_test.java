@@ -26,7 +26,15 @@ public class Goeuro_test {
     /**
      * @param args the command line arguments
      */
-    
+      
+        public static void writeFile(String data, String filename){
+            try {        
+                Files.write(Paths.get("./"+filename), data.getBytes());
+
+            } catch (Exception x) {
+                System.err.format("IOException: %s%n", x);
+            }
+        }
         public static String getCsvFormat(JSONArray jsonarray, String seperator){
             String csv_str=" _id"+seperator+" name"+seperator+" type"+seperator+" latitude"+seperator+" longitude\n";
             for (int i = 0; i < jsonarray.length(); i++) {
@@ -42,7 +50,8 @@ public class Goeuro_test {
             }
             return csv_str;
         }
-        public static void processLocation(String city_name){
+        
+        public static String getLocationData(String city_name){
         String csv_data="";
         try {
                         URL url = new URL("http://api.goeuro.com/api/v2/position/suggest/en/"+city_name);
@@ -65,17 +74,10 @@ public class Goeuro_test {
                         System.out.println(e);
                         e.printStackTrace();
                 }
-        writeFile(csv_data, city_name+".csv");
-        System.out.println(csv_data);
-        
-    }
-        public static void writeFile(String data, String filename){
-            try {        
-                Files.write(Paths.get("./"+filename), data.getBytes());
-
-            } catch (Exception x) {
-                System.err.format("IOException: %s%n", x);
-            }
+            return csv_data;
+        }
+        public static void processLocation(String city_name){
+            writeFile(getLocationData(city_name), city_name+".csv");
         }
  	public static void main(String[] args) {
             //System.out.println(args[0]);
