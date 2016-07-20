@@ -21,10 +21,12 @@ import org.json.JSONObject;
  */
 public class Goeuro_test {
 
-    /**
-     * @param args the command line arguments
-     */
-      
+      /*
+        This function takes two strings data and and filename, 
+        and tries to create a file with the given name and store the data in it.
+        In this case, the filename is same as the city_name 
+        and it will be created in the same folder as the jar file
+    */
         public static void writeFile(String data, String filename){
             try {        
                 Files.write(Paths.get("./"+filename), data.getBytes());
@@ -33,6 +35,10 @@ public class Goeuro_test {
                 System.err.format("IOException: %s%n", x);
             }
         }
+        /*
+        This function takes a JSONArray and string for sepertor
+           It transforms that JSONArray into csv data format to store in the file using the given separator.
+        */
         public static String getCsvFormat(JSONArray jsonarray, String seperator){
             String csv_str=" _id"+seperator+" name"+seperator+" type"+seperator+" latitude"+seperator+" longitude\n";
             for (int i = 0; i < jsonarray.length(); i++) {
@@ -48,7 +54,11 @@ public class Goeuro_test {
             }
             return csv_str;
         }
+        /*
+       This function takes the cityname as a string and invokes the goeuro service for that city name
+        and returns the data as a string in csv format to be stored in a file later.
         
+        */
         public static String getLocationData(String city_name){
         String csv_data="";
         try {
@@ -74,9 +84,19 @@ public class Goeuro_test {
                 }
             return csv_data;
         }
+        /*
+        This function takes city name as a string input
+        and calls the goeuro service for the city name and writes the response in csv format in afile
+        that is created in the same folder as the jar file with the template [CITY_NAME].csv
+        */
         public static void processLocation(String city_name){
             writeFile(getLocationData(city_name), city_name+".csv");
         }
+        /*
+        Extracts the city name from the command line argument and creates a csv file with the same name as the city
+        in the folder that containes the execuatable file, containing the response of the goeuro location service.
+        
+        */
  	public static void main(String[] args) {
             String city_name="";
             try{
